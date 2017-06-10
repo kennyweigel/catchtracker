@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609222624) do
+ActiveRecord::Schema.define(version: 20170610215026) do
+
+  create_table "catches", force: :cascade do |t|
+    t.integer "length"
+    t.datetime "time"
+    t.text "notes"
+    t.integer "user_id"
+    t.integer "fish_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fish_id"], name: "index_catches_on_fish_id"
+    t.index ["user_id"], name: "index_catches_on_user_id"
+  end
 
   create_table "fish", force: :cascade do |t|
     t.string "name"

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Length:</strong>
+  <%= @catch.length %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @catch.time %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @catch.notes %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @catch.user %>
+</p>
+
+<p>
+  <strong>Fish:</strong>
+  <%= @catch.fish %>
+</p>
+
+<%= link_to 'Edit', edit_catch_path(@catch) %> |
+<%= link_to 'Back', catches_path %>
