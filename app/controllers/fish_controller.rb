@@ -1,5 +1,9 @@
 class FishController < ApplicationController
+  include ApplicationHelper
+
   before_action :set_fish, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :is_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /fish
   # GET /fish.json
@@ -25,6 +29,7 @@ class FishController < ApplicationController
   # POST /fish.json
   def create
     @fish = Fish.new(fish_params)
+    @fish.user_id = current_user.id
 
     respond_to do |format|
       if @fish.save

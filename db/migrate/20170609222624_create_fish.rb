@@ -6,5 +6,6 @@ class CreateFish < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :fish, [:user_id, :created_at]
   end
 end
