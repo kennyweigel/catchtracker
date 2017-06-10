@@ -1,6 +1,6 @@
 <h1>Fish</h1>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th>Name</th>
@@ -15,8 +15,10 @@
         <td><%= fish.name %></td>
         <td><%= fish.user.email %></td>
         <td><%= link_to 'Show', fish %></td>
+        <% if is_admin %>
         <td><%= link_to 'Edit', edit_fish_path(fish) %></td>
         <td><%= link_to 'Destroy', fish, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end%>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Fish', new_fish_path %>
+<% if is_admin %>
+<%= link_to 'New Fish', new_fish_path, class: 'btn btn-default' %>
+<% end %>

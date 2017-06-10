@@ -1,7 +1,7 @@
 <%= form_with(model: fish, local: true) do |form| %>
   <% if fish.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(fish.errors.count, "error") %> prohibited this fish from being saved:</h2>
+    <div class="alert alert-danger" role="alert">
+      <p><%= pluralize(fish.errors.count, "error") %> prohibited this fish from being saved:</p>
 
       <ul>
       <% fish.errors.full_messages.each do |message| %>
@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, id: :fish_name %>
+    <%= form.text_field :name, id: :fish_name, class: 'form-control' %>
   </div>
 
   <!-- <div class="field">
@@ -23,6 +23,6 @@
 
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :Submit, class: 'btn btn-default' %>
   </div>
 <% end %>

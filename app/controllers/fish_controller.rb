@@ -3,7 +3,7 @@ class FishController < ApplicationController
 
   before_action :set_fish, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
-  before_action :is_admin, only: [:new, :edit, :create, :update, :destroy]
+  before_action :must_be_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /fish
   # GET /fish.json
@@ -75,5 +75,12 @@ class FishController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def fish_params
       params.require(:fish).permit(:name, :user_id)
+    end
+
+    def must_be_admin
+      if !is_admin
+        redirect_to fish_index_path, :flash => { :alert => 'You must be an admin.' }
+        return
+      end
     end
 end
