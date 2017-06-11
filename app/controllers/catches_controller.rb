@@ -1,5 +1,7 @@
 class CatchesController < ApplicationController
   before_action :set_catch, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :catch_belongs_to_user, only: [:edit, :update, :destroy]
 
   # GET /catches
   # GET /catches.json
@@ -25,6 +27,7 @@ class CatchesController < ApplicationController
   # POST /catches.json
   def create
     @catch = Catch.new(catch_params)
+    @catch.user_id = current_user.id
 
     respond_to do |format|
       if @catch.save
@@ -70,5 +73,12 @@ class CatchesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def catch_params
       params.require(:catch).permit(:length, :time, :notes, :user_id, :fish_id)
+    end
+
+    def catch_belongs_to_user
+      if @catch.user_id != current_user.id
+        redirect_to catches_path, :flash => { :alert => 'You can\'t edit catches made by other users.' }
+        return
+      end
     end
 end

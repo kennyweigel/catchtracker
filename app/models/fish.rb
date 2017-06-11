@@ -1,4 +1,5 @@
 class Fish < ApplicationRecord
   belongs_to :user
-  validates :name, presence: true
+  has_many :catches
+  validates :name, presence: true, uniqueness: true
 end

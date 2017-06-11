@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Catches</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Length</th>
@@ -20,8 +18,8 @@
         <td><%= catch.length %></td>
         <td><%= catch.time %></td>
         <td><%= catch.notes %></td>
-        <td><%= catch.user %></td>
-        <td><%= catch.fish %></td>
+        <td><%= catch.user.email %></td>
+        <td><%= catch.fish.name %></td>
         <td><%= link_to 'Show', catch %></td>
         <td><%= link_to 'Edit', edit_catch_path(catch) %></td>
         <td><%= link_to 'Destroy', catch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -32,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Catch', new_catch_path %>
+<%= link_to 'New Catch', new_catch_path, class: 'btn btn-default' %>

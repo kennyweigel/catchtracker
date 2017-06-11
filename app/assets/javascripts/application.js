@@ -15,3 +15,27 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+//= require select2
+//= require moment
+//= require bootstrap-datetimepicker
+
+(function() {
+  var docReady = function() {
+    console.log('doc ready');
+    window.CatchTracker = window.CatchTracker || {};
+
+    $('select').select2({
+      theme: 'bootstrap'
+    });
+
+
+    $('#datetimepicker').datetimepicker({
+      defaultDate: window.CatchTracker.catchDefaultTime,
+      format: 'YYYY-MM-DD hh:mm a Z'
+    });
+
+  };
+
+  $(document).on('turbolinks:load', docReady);
+
+})();
