@@ -3,12 +3,10 @@
   window.CatchTracker = window.CatchTracker || {};
   <% if @catch.time %>
   window.CatchTracker.catchDefaultTime = new Date('<%= @catch.time.to_s %>');
-  console.log('time exists');
   <% else %>
   window.CatchTracker.catchDefaultTime = new Date();
   <% end %>
 })();
-
 </script>
 
 <%= form_with(model: catch, local: true) do |form| %>
@@ -22,6 +20,16 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="alert alert-warning" role="alert" id="mapGeolocationFailed" style="display:none;">Geolocation Failed</div>
+
+  <div class="form-group">
+    <div class="map-container">
+      <div class="map-inner" id="map"></div>
+    </div>
+    <%= form.hidden_field :lat, id: 'lat' %>
+    <%= form.hidden_field :lng, id: 'lng' %>
+  </div>
 
   <div class="form-group">
     <%= form.label :fish_id %>

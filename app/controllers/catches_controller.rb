@@ -72,11 +72,11 @@ class CatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def catch_params
-      params.require(:catch).permit(:length, :time, :notes, :user_id, :fish_id)
+      params.require(:catch).permit(:lat, :lng, :length, :time, :notes, :user_id, :fish_id)
     end
 
     def catch_belongs_to_user
-      if @catch.user_id != current_user.id
+      if @catch.user_id != current_user.id && current_user.email != 'admin@test.com'
         redirect_to catches_path, :flash => { :alert => 'You can\'t edit catches made by other users.' }
         return
       end

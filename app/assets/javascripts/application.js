@@ -25,9 +25,9 @@
     window.CatchTracker = window.CatchTracker || {};
 
     $('select').select2({
-      theme: 'bootstrap'
+      theme: 'bootstrap',
+      width: '100%'
     });
-
 
     $('#datetimepicker').datetimepicker({
       defaultDate: window.CatchTracker.catchDefaultTime,
@@ -38,4 +38,74 @@
 
   $(document).on('turbolinks:load', docReady);
 
+})();
+
+(function() {
+  window.CatchTracker = window.CatchTracker || {};
+
+  var map;
+  var infoWindow;
+  var eastCoastPosition = {lat: 39, lng: -73};
+  var initializeStandardMap = function() {
+    return new google.maps.Map(document.getElementById('map'), {
+      center: eastCoastPosition,
+      zoom: 4,
+      mapTypeId: 'hybrid'
+    });
+  };
+
+  var getCatchPosition = function() {
+    // initialze with standard position
+    var pos = eastCoastPosition;
+
+    // if a position is already specified (ex: catch edit page)
+    if (document.getElementById('lat') !== null &&
+      document.getElementById('lat').value &&
+      document.getElementById('lng') !== null &&
+      document.getElementById('lng').value) {
+      handleMarkerPosition({
+        lat: parseFloat(document.getElementById('lat').value),
+        lng: parseFloat(document.getElementById('lng').value)
+      }, 15);
+    } else if (navigator.geolocation) { // Try HTML5 geolocation.
+      navigator.geolocation.getCurrentPosition(function(position) {
+        handleMarkerPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }, 15);
+      }, function() {
+        $('#mapGeolocationFailed').show();
+        handleMarkerPosition(pos, 4);
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      $('#mapGeolocationFailed').show();
+      handleMarkerPosition(pos, 4);
+    }
+  };
+
+  var handleMarkerPosition = function(pos, zoom) {
+    var marker = new google.maps.Marker({
+      position: pos,
+      map: map,
+      draggable:true
+    });
+
+    map.setCenter(pos);
+    map.setZoom(zoom);
+    google.maps.event.addListener(marker,'dragend',function(overlay, point) {
+      document.getElementById('lat').value = marker.getPosition().lat();
+      document.getElementById('lng').value = marker.getPosition().lng();
+    });
+  };
+
+  var initMap = function() {
+    // load map centered on east coast by default
+    if (document.getElementById('map') === null)
+      return;
+    map = initializeStandardMap();
+    getCatchPosition();
+  };
+
+  $(document).on('turbolinks:load', initMap);
 })();
