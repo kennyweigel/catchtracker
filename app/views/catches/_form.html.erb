@@ -1,8 +1,20 @@
+<script>
+(function() {
+  window.CatchTracker = window.CatchTracker || {};
+  <% if @catch.time %>
+  window.CatchTracker.catchDefaultTime = new Date('<%= @catch.time.to_s %>');
+  console.log('time exists');
+  <% else %>
+  window.CatchTracker.catchDefaultTime = new Date();
+  <% end %>
+})();
+
+</script>
+
 <%= form_with(model: catch, local: true) do |form| %>
   <% if catch.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(catch.errors.count, "error") %> prohibited this catch from being saved:</h2>
-
+    <div class="alert alert-danger" role="alert">
+      <p><%= pluralize(catch.errors.count, "error") %> prohibited this catch from being saved:</p>
       <ul>
       <% catch.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,32 +23,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :length %>
-    <%= form.number_field :length, id: :catch_length %>
-  </div>
-
-  <div class="field">
-    <%= form.label :time %>
-    <%= form.datetime_select :time, id: :catch_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :notes %>
-    <%= form.text_area :notes, id: :catch_notes %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, id: :catch_user_id %>
-  </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :fish_id %>
-    <%= form.text_field :fish_id, id: :catch_fish_id %>
+    <%= form.collection_select :fish_id, Fish.all, :id, :name, {prompt: true}, {class: 'selectpicker'} %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.label :length %>
+    <%= form.number_field :length, id: :catch_length, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :time %>
+    <div class='input-group date' id='datetimepicker'>
+      <%= form.text_field :time, :class => "form-control"%>
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, id: :catch_notes, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit :Submit, class: 'btn btn-default' %>
   </div>
 <% end %>
