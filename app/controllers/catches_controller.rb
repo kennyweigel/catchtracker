@@ -6,7 +6,7 @@ class CatchesController < ApplicationController
   # GET /catches
   # GET /catches.json
   def index
-    @catches = Catch.all
+    @catches = Catch.all.order('time DESC')
   end
 
   # GET /catches/1

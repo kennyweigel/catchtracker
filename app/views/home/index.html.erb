@@ -1,2 +1,28 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Recent Catches</h1>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Length</th>
+        <th>Time</th>
+        <th>User</th>
+        <th>Fish</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @recentCatches.each do |catch| %>
+        <tr>
+          <td><%= catch.length %></td>
+          <td><%= catch.time %></td>
+          <td><%= catch.user.email %></td>
+          <td><%= catch.fish.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="map-container">
+  <div class="map-inner" id="homeMap"></div>
+</div>
