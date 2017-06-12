@@ -15,12 +15,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @catch.user %>
+  <%= @catch.user.email %>
 </p>
 
 <p>
   <strong>Fish:</strong>
-  <%= @catch.fish %>
+  <%= @catch.fish.name %>
 </p>
 
 <%= link_to 'Edit', edit_catch_path(@catch) %> |
