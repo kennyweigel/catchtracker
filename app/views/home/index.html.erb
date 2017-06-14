@@ -1,4 +1,9 @@
 <h1>Recent Catches</h1>
+
+<div class="map-container">
+  <div class="map-inner" id="homeMap"></div>
+</div>
+
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -25,6 +30,7 @@
   </table>
 </div>
 
-<div class="map-container">
-  <div class="map-inner" id="homeMap"></div>
-</div>
+<script>
+window.CatchTracker = window.CatchTracker || {};
+window.CatchTracker.catches = <%= @catches.to_json.html_safe %>;
+</script>

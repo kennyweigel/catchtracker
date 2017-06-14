@@ -1,3 +1,14 @@
+<script>
+window.CatchTracker = window.CatchTracker || {};
+window.CatchTracker.catchPosition = { lat: <%= @catch.lat  %>, lng: <%= @catch.lng %> };
+</script>
+<p>
+  <div class="map-container">
+    <div class="map-inner" id="showMap">
+    </div>
+  </div>
+</p>
+
 <p>
   <strong>Length:</strong>
   <%= @catch.length %>

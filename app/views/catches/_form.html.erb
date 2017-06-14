@@ -1,12 +1,10 @@
 <script>
-(function() {
-  window.CatchTracker = window.CatchTracker || {};
-  <% if @catch.time %>
-  window.CatchTracker.catchDefaultTime = new Date('<%= @catch.time.to_s %>');
-  <% else %>
-  window.CatchTracker.catchDefaultTime = new Date();
-  <% end %>
-})();
+window.CatchTracker = window.CatchTracker || {};
+<% if @catch.time %>
+window.CatchTracker.catchDefaultTime = new Date('<%= @catch.time.to_s %>');
+<% else %>
+window.CatchTracker.catchDefaultTime = new Date();
+<% end %>
 </script>
 
 <%= form_with(model: catch, local: true) do |form| %>
