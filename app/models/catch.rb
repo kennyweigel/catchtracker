@@ -1,4 +1,5 @@
 class Catch < ApplicationRecord
+  acts_as_paranoid
   belongs_to :user
   belongs_to :fish
   validates :lat, presence: true

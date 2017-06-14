@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170611201425) do
+ActiveRecord::Schema.define(version: 20170614013957) do
 
   create_table "catches", force: :cascade do |t|
     t.integer "length"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20170611201425) do
     t.datetime "updated_at", null: false
     t.float "lat"
     t.float "lng"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_catches_on_deleted_at"
     t.index ["fish_id"], name: "index_catches_on_fish_id"
     t.index ["user_id"], name: "index_catches_on_user_id"
   end
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 20170611201425) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_fish_on_deleted_at"
     t.index ["user_id", "created_at"], name: "index_fish_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_fish_on_user_id"
   end
